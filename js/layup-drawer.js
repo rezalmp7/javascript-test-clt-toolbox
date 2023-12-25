@@ -141,6 +141,10 @@ LayupDrawer.prototype = {
             } else {
                 this.drawPolygonWithBackground(this.ctx, index, coordinate, document.getElementById('paralel0'), element);
             }
+
+            if(index < data.length-1) {
+                this.drawLine(this.ctx, this.areaChart.left-2, topElementWood, this.areaChart.right+2, topElementWood, 'green');
+            }
         });
     },
 
@@ -207,7 +211,6 @@ LayupDrawer.prototype = {
             ctx.drawImage (pathImage, coordinate.x1+width, coordinate.y1, height*aspectRatio, height);
         }
         ctx.restore();
-        ctx.stroke ();
     }
     /**
      * Add more functions as you need
