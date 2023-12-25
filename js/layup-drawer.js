@@ -58,6 +58,23 @@ LayupDrawer.prototype = {
         this.drawValueData();
     },
 
+    reDraw : function(layup) {
+        console.log("Re Draw");
+        this.valueChart = {
+            'y' : Object.values(layup).reduce((a, b) => a = a+b.thickness, 0),
+            'x' : 150
+        }
+
+        this.perbandinganChartLengthValue = this.LengthYLine / this.valueChart.y;
+        this.dataValue = layup;
+
+        this.ctx.clearRect(0, 0, 700, 800);
+
+        this.drawLineChart();
+
+        this.drawValueData();
+    },
+
     drawLineChart : function() {
         this.drawLine(this.ctx, this.areaChart.left, this.areaChart.top, this.areaChart.left, this.areaChart.bottom, "#000");
         this.drawLine(this.ctx, this.areaChart.left, this.areaChart.bottom, this.areaChart.right, this.areaChart.bottom, "#000");

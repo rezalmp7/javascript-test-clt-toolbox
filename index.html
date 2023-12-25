@@ -5,12 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="#" />
     <title>Layup Drawer</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <img id="perpandicular90" style="display: none;" src="../images/perpendicular-grain-90.jpg">
-    <img id="paralel0" style="display: none;" src="../images/paralel-grain-0.jpg">
-    <canvas width="700" height="800" id="playground"></canvas>
+    <div class="row p-3">
+        <div class="col">
+            <img id="perpandicular90" style="display: none;" src="../images/perpendicular-grain-90.jpg">
+            <img id="paralel0" style="display: none;" src="../images/paralel-grain-0.jpg">
+            <canvas width="700" height="800" id="playground"></canvas>
+        </div>
+        <div class="col p-3">
+            <textarea onkeyup="reDraw()" class="form-control col-12" style="height:500px" id="dataLayup"></textarea>
+            <button onclick="reDraw()" class="btn btn-success btn-sm">Refresh</button>
+        </div>
+    </div>
 
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="js/layup-drawer.js"></script>
     <script>
         var cltLayup = {
@@ -49,13 +62,26 @@
                 grade : 'MGP10',
             },
 
+            t6 : {
+                label : 'T6',
+                thickness : 45, // in mm
+                angle : 0,      // in degree
+                grade : 'MGP10',
+            },
+
         };
 
         var layupDrawer = new LayupDrawer();
         var playground = document.getElementById('playground');
+        document.getElementById("dataLayup").value = JSON.stringify(cltLayup, undefined, 4);
 
         layupDrawer.init(playground);
         layupDrawer.drawLayup(cltLayup);
+
+        function reDraw() {
+            let data = document.getElementById("dataLayup").value;
+            layupDrawer.reDraw(JSON.parse(data));
+        }
     </script>
 </body>
 </html>
